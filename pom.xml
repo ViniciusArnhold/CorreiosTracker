@@ -27,5 +27,17 @@
             <artifactId>jsoup</artifactId>
             <version>1.8.3</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.PlusHaze</groupId>
+            <artifactId>TrayNotification</artifactId>
+            <version>5393c3a54f</version>
+        </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 </project>

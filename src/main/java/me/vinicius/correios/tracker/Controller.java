@@ -1,13 +1,18 @@
 package me.vinicius.correios.tracker;
 
+import com.github.plushaze.traynotification.animations.Animations;
+import com.github.plushaze.traynotification.notification.Notifications;
+import com.github.plushaze.traynotification.notification.TrayNotification;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import me.vinicius.correios.api.Event;
 import me.vinicius.correios.api.Rastreamento;
 
@@ -158,6 +163,18 @@ class Controller {
                                 eventList.getItems().add(0, "Estava em: " + e.getLocal());
                                 eventList.getItems().add(0, e.getAction() + " em " + e.getData());
                             }
+
+                            //Notification -  For Testing - Debug
+                            String title = "Rastreamento de: " + codeList.getSelectionModel().getSelectedItem() + "\n" +
+                                    eventsReversed[0].getAction() + " em " + eventsReversed[0].getData();
+                            String message = eventsReversed[0].getMovement();
+                            Notifications notification = Notifications.SUCCESS;
+
+
+                            TrayNotification tray = new TrayNotification(title, message, notification);
+                            tray.setImage(new Image("http://globalestudio.com.br/loja/image/cache/catalog/PRODUTOS/modulosmodulo-de-frete-correios-opencart-54-746x746.jpg"));
+                            tray.setAnimation(Animations.FADE);
+                            tray.showAndDismiss(Duration.seconds(3));
                         }
                     } else {
                         System.out.println("Events is null");
