@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60"
+          xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.0" minWidth="10.0" prefWidth="190.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="481.0" minWidth="10.0" prefWidth="410.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <children>
+        <GridPane gridLinesVisible="true">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="343.0" minHeight="10.0" prefHeight="290.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="194.0" minHeight="10.0" prefHeight="110.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <ListView fx:id="codeList" prefHeight="200.0" prefWidth="200.0"/>
+                <VBox fx:id="vBox" alignment="TOP_CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0"
+                      GridPane.rowIndex="1">
+                    <children>
+                        <HBox fx:id="hBox" alignment="CENTER" prefHeight="59.0" prefWidth="190.0" spacing="10.0">
+                            <children>
+                                <Button fx:id="bAdd" mnemonicParsing="false" text="Add"/>
+                                <Button fx:id="bView" mnemonicParsing="false" text="View"/>
+                                <Button fx:id="bDelete" mnemonicParsing="false" text="Delete"/>
+                            </children>
+                        </HBox>
+                        <ComboBox fx:id="comboBox" prefWidth="150.0"/>
+                    </children>
+                </VBox>
+            </children>
+        </GridPane>
+        <ListView fx:id="eventList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1"/>
+    </children>
+</GridPane>
