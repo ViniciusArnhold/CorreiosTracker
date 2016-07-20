@@ -28,7 +28,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import me.vinicius.correios.api.Event;
 import me.vinicius.correios.api.Rastreamento;
 
@@ -36,7 +35,7 @@ import me.vinicius.correios.api.Rastreamento;
 @SuppressWarnings("unused")
 class Controller {
 
-    Updater updater = new Updater(300000);//Five Minutes
+    private Updater updater = new Updater(300000);//Five Minutes
     @FXML
     private ComboBox comboBox;
     @FXML
@@ -154,10 +153,8 @@ class Controller {
                         try {
                             res.track();
                         } catch (IOException e) {
-                            Platform.runLater(() -> {
-                                eventListView.getItems().add("Connection error, please check your" +
-                                        " connection");
-                            });
+                            Platform.runLater(() -> eventListView.getItems().add("Connection error" +
+                                    ", please check your connection"));
                         }
                         Event eventsReversed[] = res.getEvents() != null ? res.getEvents() : null;
                         if (eventsReversed != null) {
@@ -227,6 +224,7 @@ class Controller {
             Preferences pref = Preferences.userNodeForPackage(getClass());
             pref.putBoolean("notFirstRun", true);
             pref.put("codeList", codeListView.getItems().toString());
+            updater.setCancelled(true);
         });
         //Load Properties
         primaryStage.setOnShown(event -> {

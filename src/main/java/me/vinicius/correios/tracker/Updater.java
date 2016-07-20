@@ -7,27 +7,24 @@ import com.github.plushaze.traynotification.notification.TrayNotification;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javafx.scene.image.Image;
 import javafx.util.Duration;
-
 import me.vinicius.correios.api.Event;
 import me.vinicius.correios.api.Rastreamento;
 
-/**
- * Created by Vinicius on 7/20/2016.
- */
+@SuppressWarnings("unused")
 public class Updater implements Runnable {
 
     private Map<String, String> eventMap;//Last Event Change Map
     private int updateTime;
     private boolean cancelled;
 
-
     public Updater(int updateTime) {
-        eventMap = new HashMap<String, String>();
+        eventMap = new HashMap<>();
         this.updateTime = updateTime;
         cancelled = false;
     }
@@ -41,12 +38,12 @@ public class Updater implements Runnable {
         return cancelled;
     }
 
-    public Map<String, String> getEventMap() {
-        return eventMap;
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
     }
 
-    public void update() {
-
+    public Map<String, String> getEventMap() {
+        return eventMap;
     }
 
     public void setCodesAndUpdate(String codes) {
@@ -92,7 +89,7 @@ public class Updater implements Runnable {
                 Event events[] = res.getEvents();
                 if (events != null) {
                     if (events.length > 0) {
-                        if (events[events.length - 1].getData() != eventMap.get(s)) {
+                        if (!Objects.equals(events[events.length - 1].getData(), eventMap.get(s))) {
 
                             //Notification
                             String title = "Rastreamento de: " + s + " em " +
