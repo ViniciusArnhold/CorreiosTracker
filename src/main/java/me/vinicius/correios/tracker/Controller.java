@@ -65,8 +65,6 @@ class Controller {
 
     private Stage primaryStage;
 
-    private ObservableList<String> codeList;
-
     void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
