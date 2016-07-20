@@ -9,9 +9,6 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by Vinicius on 16/07/2016.
- */
 public class Rastreamento {
 
     private static final String URL_BASE = "http://websro.correios.com.br/sro_bin/txect01%24.QueryList?P_LI" +

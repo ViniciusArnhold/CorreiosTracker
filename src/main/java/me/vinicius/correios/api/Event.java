@@ -7,6 +7,15 @@ public class Event {
     private final String action;
     private final String movement;
 
+    Event(String data, String local, String action, String movement) {
+
+        this.data = data;
+        this.local = local;
+        this.action = action;
+        this.movement = movement;
+
+    }
+
     public String getData() {
         return data;
     }
@@ -23,14 +32,6 @@ public class Event {
         return movement;
     }
 
-    Event(String data, String local, String action, String movement) {
-
-        this.data = data;
-        this.local = local;
-        this.action = action;
-        this.movement = movement;
-
-    }
     @SuppressWarnings("unused")
     public String toSring() {
         return data + "\n" +

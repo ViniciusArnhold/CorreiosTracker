@@ -7,10 +7,15 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+@SuppressWarnings("WeakerAccess")
 public class Main extends Application {
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
 
         FXMLLoader fxmlloader = new FXMLLoader(getClass().getClassLoader().getResource("interface.fxml"));
 
@@ -19,7 +24,7 @@ public class Main extends Application {
         controller.setPrimaryStage(primaryStage);
 
         Parent root = fxmlloader.load();
-        Scene scene = new Scene(root,650,400);
+        Scene scene = new Scene(root, 650, 400);
 
 
         primaryStage.setTitle("Correios Package Tracker");
@@ -28,11 +33,5 @@ public class Main extends Application {
         primaryStage.resizableProperty().set(false);
         primaryStage.show();
 
-    }
-
-
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

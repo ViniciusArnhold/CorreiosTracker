@@ -1,12 +1,14 @@
 package me.vinicius.correios.api;
 
-class InvalidValueException extends RuntimeException{
+class InvalidValueException extends RuntimeException {
 
-    @SuppressWarnings("unused")
-    public InvalidValueException(){
+    @SuppressWarnings({"WeakerAccess", "unused"})
+    public InvalidValueException() {
         super();
     }
-    InvalidValueException(String message){
+
+    public InvalidValueException(String message) {
         super(message);
     }
 }
+
