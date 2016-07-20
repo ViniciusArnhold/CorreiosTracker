@@ -25,6 +25,7 @@ public class Main extends Application {
         primaryStage.setTitle("Correios Package Tracker");
         primaryStage.getIcons().add(new Image("http://globalestudio.com.br/loja/image/cache/catalog/PRODUTOS/modulosmodulo-de-frete-correios-opencart-54-746x746.jpg"));
         primaryStage.setScene(scene);
+        primaryStage.resizableProperty().set(false);
         primaryStage.show();
 
     }
