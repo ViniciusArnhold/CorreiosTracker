@@ -69,6 +69,7 @@ class Controller {
         this.primaryStage = primaryStage;
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
     @FXML
     void initialize() {
         assert codeListView != null : "fx:id=\"codeListView\" was not injected: check your FXML file 'interface.fxml'.";
@@ -204,11 +205,13 @@ class Controller {
             if (pref.getBoolean("notFirstRun", false)) { // Preferences Exists
                 String str = null;
                 str = pref.get("codeList", "");
+                //noinspection StatementWithEmptyBody
                 if (str != null) {
                     if (str.length() != 0) {
                         Matcher m = Pattern.compile("[A-Z]{2}\\d{9}[A-Z]{1,3}").matcher(str); //This differs from the
                         // first because now we will have more than one tracking code
                         while (m.find()) {
+                            //noinspection unchecked
                             comboBox.getItems().add(0, m.group());
                             codeListView.getItems().add(0, m.group());
                         }

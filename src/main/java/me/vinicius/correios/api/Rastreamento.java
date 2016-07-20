@@ -19,12 +19,11 @@ public class Rastreamento {
 
     private String code;
 
-    // Post-Tracking Fields
-    private String tipo;
     private Event events[];
 
     //
 
+    @SuppressWarnings("unused")
     public Rastreamento() {
 
     }
@@ -38,6 +37,7 @@ public class Rastreamento {
         return this.code;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public void setCode(String code) {
         code = code.toUpperCase();
 
@@ -49,6 +49,7 @@ public class Rastreamento {
         throw new InvalidValueException("Invalid value for code : " + code);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public boolean isCodeSet() {
         return code != null;
     }
@@ -108,10 +109,6 @@ public class Rastreamento {
 
     public Event[] getEvents() {
         return events;
-    }
-
-    public static void main(String args[]) {
-
     }
 
 }

@@ -2,10 +2,10 @@ package me.vinicius.correios.api;
 
 public class Event {
 
-    private String data;
-    private String local;
-    private String action;
-    private String movement;
+    private final String data;
+    private final String local;
+    private final String action;
+    private final String movement;
 
     public String getData() {
         return data;
