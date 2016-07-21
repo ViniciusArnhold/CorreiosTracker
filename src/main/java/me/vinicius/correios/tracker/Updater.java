@@ -3,6 +3,10 @@ package me.vinicius.correios.tracker;
 import com.github.plushaze.traynotification.animations.Animations;
 import com.github.plushaze.traynotification.notification.Notifications;
 import com.github.plushaze.traynotification.notification.TrayNotification;
+import javafx.scene.image.Image;
+import javafx.util.Duration;
+import me.vinicius.correios.api.Event;
+import me.vinicius.correios.api.Rastreamento;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -11,10 +15,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javafx.scene.image.Image;
-import javafx.util.Duration;
-import me.vinicius.correios.api.Event;
-import me.vinicius.correios.api.Rastreamento;
+import static java.lang.Thread.sleep;
 
 @SuppressWarnings("unused")
 public class Updater implements Runnable {
@@ -72,9 +73,14 @@ public class Updater implements Runnable {
 
     @Override
     public void run() {
+        try {
+            sleep(60000);
+        } catch (InterruptedException ignored) {
+
+        }
         while (!cancelled) {
             try {
-                Thread.sleep(updateTime);
+                sleep(updateTime);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -108,8 +114,11 @@ public class Updater implements Runnable {
                     } else {
                         System.out.println("Update found for: " + s);
                     }
+                } else {
+                    System.out.println("Update not found for: " + s);
                 }
             }
+            System.out.println("END Update");
         }
     }
 }

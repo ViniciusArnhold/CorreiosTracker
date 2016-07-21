@@ -29,7 +29,8 @@ import java.util.regex.Pattern;
 @SuppressWarnings("unused")
 class Controller {
 
-    private Updater updater = new Updater(300000);//Five Minutes
+    private Updater updater = new Updater(30000);//Five Minutes
+    Thread updaterThread = new Thread(updater);
     @FXML
     private ComboBox comboBox;
     @FXML
@@ -233,11 +234,6 @@ class Controller {
                 if (str != null) {
                     if (str.length() != 0) {
 
-                        //Since the Updater runs in another Thread, we will run the Regex in
-                        // both to reduced time
-                        updater.setCodesAndUpdate(str);
-                        updater.run();
-
                         Matcher m = Pattern.compile("[A-Z]{2}\\d{9}[A-Z]{1,3}").matcher(str);//
                         //This differs from the
                         // first because now we will have more than one tracking code
@@ -246,6 +242,11 @@ class Controller {
                             comboBox.getItems().add(0, m.group());
                             codeListView.getItems().add(0, m.group());
                         }
+
+                        //Since the Updater runs in another Thread, we will run the Regex in
+                        // both to reduced time
+                        updater.setCodesAndUpdate(str);
+                        updaterThread.start();
 
                     }
                 }
