@@ -236,6 +236,7 @@ class Controller {
                         //Since the Updater runs in another Thread, we will run the Regex in
                         // both to reduced time
                         updater.setCodesAndUpdate(str);
+                        updater.run();
 
                         Matcher m = Pattern.compile("[A-Z]{2}\\d{9}[A-Z]{1,3}").matcher(str);//
                         //This differs from the
