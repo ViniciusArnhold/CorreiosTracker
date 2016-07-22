@@ -17,7 +17,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getClassLoader().getResource("interface.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getClassLoader()
+                .getResource("interface.fxml"));
 
         Controller controller = new Controller();
         fxmlloader.setController(controller);
@@ -28,7 +29,8 @@ public class Main extends Application {
 
 
         primaryStage.setTitle("Correios Package Tracker");
-        primaryStage.getIcons().add(new Image("http://globalestudio.com.br/loja/image/cache/catalog/PRODUTOS/modulosmodulo-de-frete-correios-opencart-54-746x746.jpg"));
+        primaryStage.getIcons().add(new Image("http://globalestudio.com.br/loja/image/cache/cata" +
+                "log/PRODUTOS/modulosmodulo-de-frete-correios-opencart-54-746x746.jpg"));
         primaryStage.setScene(scene);
         primaryStage.resizableProperty().set(false);
         primaryStage.show();

@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
 
 public class Rastreamento {
 
-    private static final String URL_BASE = "http://websro.correios.com.br/sro_bin/txect01%24.QueryList?P_LI" +
-            "NGUA=001&P_TIPO=001&P_COD_UNI=";
+    private static final String URL_BASE = "http://websro.correios.com.br/sro_bin/txect01%24." +
+            "QueryList?P_LINGUA=001&P_TIPO=001&P_COD_UNI=";
 
     private String code;
 

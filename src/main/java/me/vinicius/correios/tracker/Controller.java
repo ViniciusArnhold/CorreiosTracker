@@ -159,17 +159,16 @@ class Controller {
                         try {
                             res.track();
                         } catch (IOException e) {
-                            Platform.runLater(() -> eventListView.getItems().add("Connection error" +
-                                    ", please check your connection"));
+                            Platform.runLater(() -> eventListView.getItems().add("Connection " +
+                                    "error, please check your connection"));
                         }
                         Event eventsReversed[] = res.getEvents() != null ? res.getEvents() : null;
                         if (eventsReversed != null) {
                             Event events[] = new Event[eventsReversed.length];
                             //Sort the array in chronological order
                             if (events.length == 0) {
-                                Platform.runLater(() -> {
-                                    eventListView.getItems().add("Package not found, check you code");
-                                });
+                                Platform.runLater(() -> eventListView.getItems().add("Package not" +
+                                        " found, check you code"));
                             } else {
                                 for (int i = 0; i < eventsReversed.length; i++) {
                                     events[i] = eventsReversed[eventsReversed.length - i - 1];
