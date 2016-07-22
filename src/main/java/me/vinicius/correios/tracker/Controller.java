@@ -3,10 +3,24 @@ package me.vinicius.correios.tracker;
 import com.github.plushaze.traynotification.animations.Animations;
 import com.github.plushaze.traynotification.notification.Notifications;
 import com.github.plushaze.traynotification.notification.TrayNotification;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Objects;
+import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.image.Image;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
@@ -17,20 +31,17 @@ import javafx.util.Duration;
 import me.vinicius.correios.api.Event;
 import me.vinicius.correios.api.Rastreamento;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Objects;
-import java.util.ResourceBundle;
-import java.util.prefs.Preferences;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 
 @SuppressWarnings("unused")
 class Controller {
 
-    private Updater updater = new Updater(30000);//Five Minutes
-    Thread updaterThread = new Thread(updater);
+    private Updater updater = new Updater(300000);//Five Minutes
+
+    private Thread updaterThread = new Thread(updater);
+
+    private static final Pattern codePattern = Pattern.compile("^[A-Z]{2}\\d{9}[A-Z]{1,3}$");
+
+
     @FXML
     private ComboBox comboBox;
     @FXML
@@ -113,7 +124,7 @@ class Controller {
                 String code = comboBox.getSelectionModel().getSelectedItem().toString()
                         .toUpperCase();
 
-                Matcher m = Pattern.compile("^[A-Z]{2}\\d{9}[A-Z]{1,3}$").matcher(code);//Quick Match
+                Matcher m = codePattern.matcher(code);//Quick Match
                 if (m.find()) {
                     if (!codeListView.getItems().contains(code)) {
                         codeListView.getItems().add(0, code);
@@ -164,13 +175,12 @@ class Controller {
                                     events[i] = eventsReversed[eventsReversed.length - i - 1];
                                 }
                                 Platform.runLater(() -> {
+                                    ObservableList<String> ol = eventListView.getItems();
                                     for (Event e : events) {
-                                        eventListView.getItems().add(0, "");
-                                        eventListView.getItems().add(0, e.getMovement());
-                                        eventListView.getItems().add(0, "Estava em: "
-                                                + e.getLocal());
-
-                                        eventListView.getItems().add(0, e.getAction() + " em "
+                                        ol.add(0, "");
+                                        ol.add(0, e.getMovement());
+                                        ol.add(0, "Estava em: " + e.getLocal());
+                                        ol.add(0, e.getAction() + " em "
                                                 + e.getData());
 
                                     }
@@ -221,7 +231,12 @@ class Controller {
             Preferences pref = Preferences.userNodeForPackage(getClass());
             pref.putBoolean("notFirstRun", true);
             pref.put("codeList", codeListView.getItems().toString());
-            updater.setCancelled(true);
+            try {
+                updater.setCancelled(true);
+                updaterThread.interrupt();
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
         });
         //Load Properties
         primaryStage.setOnShown(event -> {

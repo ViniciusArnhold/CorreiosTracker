@@ -3,10 +3,6 @@ package me.vinicius.correios.tracker;
 import com.github.plushaze.traynotification.animations.Animations;
 import com.github.plushaze.traynotification.notification.Notifications;
 import com.github.plushaze.traynotification.notification.TrayNotification;
-import javafx.scene.image.Image;
-import javafx.util.Duration;
-import me.vinicius.correios.api.Event;
-import me.vinicius.correios.api.Rastreamento;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,11 +11,17 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javafx.scene.image.Image;
+import javafx.util.Duration;
+import me.vinicius.correios.api.Event;
+import me.vinicius.correios.api.Rastreamento;
+
 import static java.lang.Thread.sleep;
 
 @SuppressWarnings("unused")
 public class Updater implements Runnable {
 
+    private static final Pattern codePatternSeparator = Pattern.compile("[A-Z]{2}\\d{9}[A-Z]{1,3}");
     private Map<String, String> eventMap;//Last Event Change Map
     private int updateTime;
     private boolean cancelled;
@@ -51,7 +53,7 @@ public class Updater implements Runnable {
 
         if (codes != null) {
             new Thread(() -> { //Run in a Thread so we can match the regex along the Controller
-                Matcher m = Pattern.compile("[A-Z]{2}\\d{9}[A-Z]{1,3}").matcher(codes);
+                Matcher m = codePatternSeparator.matcher(codes);
 
                 while (m.find()) {
                     Rastreamento res = new Rastreamento(m.group());
@@ -73,16 +75,18 @@ public class Updater implements Runnable {
 
     @Override
     public void run() {
-        try {
-            sleep(60000);
-        } catch (InterruptedException ignored) {
 
+        try {
+            sleep(300000);
+        } catch (InterruptedException e) {
+            System.err.println("Updater Thread Interrupted - "+e.getMessage());
         }
-        while (!cancelled) {
+
+        while (!cancelled && !Thread.interrupted()) {
             try {
                 sleep(updateTime);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.err.println("Updater Thread Interrupted - "+e.getMessage());
             }
             System.out.println("BEGIN Update");
             for (String s : eventMap.keySet()) {
