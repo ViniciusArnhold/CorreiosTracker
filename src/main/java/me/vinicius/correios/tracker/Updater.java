@@ -79,16 +79,15 @@ public class Updater implements Runnable {
         try {
             sleep(300000);
         } catch (InterruptedException e) {
-            System.err.println("Updater Thread Interrupted - "+e.getMessage());
+            System.err.println("Updater Thread Interrupted - " + e.getMessage());
         }
 
         while (!cancelled && !Thread.interrupted()) {
             try {
                 sleep(updateTime);
             } catch (InterruptedException e) {
-                System.err.println("Updater Thread Interrupted - "+e.getMessage());
+                System.err.println("Updater Thread Interrupted - " + e.getMessage());
             }
-            System.out.println("BEGIN Update");
             for (String s : eventMap.keySet()) {
                 Rastreamento res = new Rastreamento(s);
                 try {
@@ -116,13 +115,10 @@ public class Updater implements Runnable {
                             tray.showAndDismiss(Duration.seconds(3));
                         }
                     } else {
-                        System.out.println("Update found for: " + s);
                     }
                 } else {
-                    System.out.println("Update not found for: " + s);
                 }
             }
-            System.out.println("END Update");
         }
     }
 }
